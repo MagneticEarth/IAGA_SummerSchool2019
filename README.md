@@ -1,6 +1,7 @@
 # IAGA_SummerSchool2019
 Materials for the workshop on magnetic observatories and modelling
 
+```
 .
 ├── LICENSE
 ├── README.md
@@ -9,3 +10,4 @@ Materials for the workshop on magnetic observatories and modelling
 │   ├── downloaded     <- Data that can be automatically downloaded by a script within src
 ├── notebooks          <- Jupyter notebooks (tutorials)
 └── src                <- Source code for this project
+```
