@@ -125,6 +125,9 @@ def pnm_calc(nmax, th):
 # Calculate arrays of the Associated Legendre Polynomials pnm and the related 
 # values xnm, ynm and znm which are needed to compute the X, Y and Z
 # geomagnetic field components
+#
+# Reverse sign on znm: 16 April 2019
+#
 def pxyznm_calc(nmax, th):
 # Initialise
     nel   = nmax*(nmax+3)//2+1
@@ -166,7 +169,7 @@ def pxyznm_calc(nmax, th):
             else:
                 ynm[idx0] = xnm[idx0]*ct
 #                
-    return((pnm, xnm, ynm, znm))
+    return((pnm, xnm, ynm, -znm))
 
 # Function to compute values of the geomagnetic field from a model gh of 
 # maximum degree and order nmax for either geodetic ot geocentric coordinates.
@@ -194,7 +197,7 @@ def shm_calculator(gh, nmax, altitude, colat, long, coord):
 # Calculate geomagnetic field components are calculated as a dot product
     X =  np.dot(ghxz, xnm)
     Y =  np.dot(ghy,  ynm)
-    Z = -np.dot(ghxz, znm)
+    Z =  np.dot(ghxz, znm)
 # Convert back to geodetic (X, Y, Z) if required
     if (coord == 'Geodetic'):
         t = X
