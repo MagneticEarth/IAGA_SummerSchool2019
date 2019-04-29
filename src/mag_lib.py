@@ -267,7 +267,7 @@ def obs_ann_means_one_year(year, filename):
                 count +=1
     return(df)
     
-############################################################################### 
+###############################################################################
 """
 
 Created on Tue Jan 29 20:43:35 2019
@@ -291,17 +291,47 @@ Created on Tue Jan 29 20:43:35 2019
     Revision date
     -------------
     30 Jan 2019
-    
-Function to read in observatory annual mean files in IAGA2002 format
 
 @author: djk
 
-"""   
+""" 
+   
 def dh2xy(d, h):
     dec = d*np.pi/(180.*60.)
     return((h*np.cos(dec), h*np.sin(dec)))
     
 ###############################################################################
+"""
+
+Created on Tue Jan 29 20:43:35 2019
+    
+    Calculate D, H, I and F from (X, Y, Z)
+      
+    Input parameters
+    ---------------
+    X: north component (nT) 
+    Y: east component (nT)
+    Z: vertical component (nT)
+    
+    Output
+    ------
+    A tuple: (D, H, I, F)
+    D: declination (degrees)
+    H: horizontal intensity (nT)
+    I: inclination (degrees)
+    F: total intensity (nT)
+    
+    Dependencies
+    ------------
+    numpy
+         
+    Revision date
+    -------------
+    28 April 2019
+    
+@author: djk
+
+"""
 def xyz2dhif(x, y, z):
     hsq = x*x + y*y
     hoz  = np.sqrt(hsq)
@@ -309,3 +339,46 @@ def xyz2dhif(x, y, z):
     dec = np.arctan2(y,x)
     inc = np.arctan2(z,hoz)
     return((r2d(dec), hoz, r2d(inc), eff))
+
+###############################################################################
+"""
+
+Created on Tue Jan 29 20:43:35 2019
+    
+    Calculate secular variation in D, H, I and F from (X, Y, Z) and
+    (Xdot, Ydot, Zdot)
+      
+    Input parameters
+    ---------------
+    X: north component (nT), and Xdot=dX/dt 
+    Y: east component (nT), and Xdot=dX/dt 
+    Z: vertical component (nT), and Xdot=dX/dt 
+    
+    Output
+    ------
+    A tuple: (Ddot, Hdot, Idot, Fdot)
+    Ddot: rate of change of declination (degrees/year)
+    Hdot: rate of change of horizontal intensity (nT/year)
+    Idot: rate of change of inclination (degrees/year)
+    Fdot: rate of change of total intensity (nT/year)
+    
+    Dependencies
+    ------------
+    numpy
+         
+    Revision date
+    -------------
+    28 April 2019
+    
+@author: djk
+
+"""
+def xyz2dhif_sv(x, y, z, xdot, ydot, zdot):
+    h2  = x*x + y*y
+    h   = np.sqrt(h2)
+    f2  = h2 + z*z
+    hdot = (x*xdot + y*ydot)/h
+    fdot = (x*xdot + y*ydot + z*zdot)/np.sqrt(f2)
+    ddot = r2d((xdot*y - ydot*x)/h2)*60
+    idot = r2d((hdot*z - h*zdot)/f2)*60
+    return((ddot, hdot, idot, fdot))
