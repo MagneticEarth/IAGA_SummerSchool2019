@@ -213,6 +213,62 @@ def read_obs_hmv(obscode, year_st, year_fn, folder):
     return(datareq)
     
 
+def read_obs_hmv_declination(obscode, year_st, year_fn, folder):
+    """Read (or calculate) the declination from hourly mean files in IAGA2002 format.
+
+    This function reads the hourly mean value data in yearly IAGA2002 format
+    files into a pandas dataframe for the specified observatory between year_st
+    and year_fn. Note that D is reported in angular units of minutes of arc (and not
+    degrees) in this file format.
+
+    Input parameters
+    ---------------
+    obscode: the IAGA observatory code: string (3 or 4 characters)
+    year_st: the start year for the data request
+    year_fn: the final year for the data request
+    folder : the location of the yearly hmv files
+
+    Output
+    ------
+    A pandas dataframe: datareq
+    This has columns for datetime and declination
+    
+    Dependencies
+    ------------
+    pandas
+
+    Local Dependencies
+    ----------------
+    none
+
+    Revision date
+    -------------
+    24/06/19 (Grace Cox)
+
+    """
+
+    OBSY   = obscode.upper()
+    obsy   = obscode.lower()
+    # Read in the observatory data one year file at a time and construct filenames
+    datareq = pd.DataFrame()
+    for year in range(year_st, year_fn+1):
+        ystr    = str(year)
+        file    = obsy + ystr + 'dhor.hor'
+        fpf     =  folder + '/' + file
+        tmp     = IAGA2002_Data_Reader(fpf)
+        tmp.columns = [col.strip(OBSY) for col in tmp.columns]
+        tmp = tmp.replace(99999.00, np.nan)
+        # Calculate D (in degrees) if not given in the file
+        if('D' not in tmp.columns):
+            dvals, hvals, ivalsm, fvals  = xyz2dhif(tmp['X'], tmp['Y'], tmp['Z'])
+            tmp.insert(loc=1, column='D', value=dvals.values)
+        else:
+            # Convert the reported values to degrees
+            tmp['D'] = tmp.D.values/60.0
+        datareq = datareq.append(tmp[['D']])
+    return(datareq)
+
+
 def read_obs_ann_mean(obscode, filename):
     """Read in the annual mean values for a single observatory.
       
