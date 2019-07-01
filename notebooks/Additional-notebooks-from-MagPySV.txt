@@ -1,0 +1,9 @@
+MagPySV is an open-source Python package designed to provide a consistent, and automated as far as possible, means of generating high resolution SV time series from observatory hourly mean data. It uses a method based on eigenanalysis (principal component analysis) to extract the internal magnetic field from the observed data, which has various internal and external sources, providing a proxy for the external magnetic field contamination. 
+
+There is another GitHub repository (at https://github.com/gracecox/MagPySV-examples) that contains two end-to-end examples of using MagPySV and the BGS data downloading package that gives access to raw observatory hourly means distributed by the World Data Centre (WDC) for Geomagnetism at Edinburgh (this is a different file format from the IAGA-2002 format used in the other notebooks in this repository.)
+
+The examples are in jupyter notebooks and reproduce two case studies for denoising geomagnetic observatory data in Europe and at high northern latitudes. These case studies were published in the following open access paper:
+
+Cox, G. A., Brown, W. J., Billingham, L., & Holme, R. (2018). MagPySV: A Python package for processing and denoising geomagnetic observatory data. Geochemistry, Geophysics, Geosystems, 19, 3347–3363. https://doi.org/10.1029/2018GC007714
+
+To look at these examples, clone the git repository using `git clone https://github.com/gracecox/MagPySV-examples.git`, open jupyter notebook in the cloned directory and follow the instructions in the notebooks. The package is already installed in the VRE (for reference, it can be installed by typing `pip install magpysv`).
