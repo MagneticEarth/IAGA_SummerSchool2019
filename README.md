@@ -1,6 +1,8 @@
 # IAGA Summer School 2019
 Materials for the workshop on magnetic observatories and modelling. Tutorials are written in Python as Jupyter Notebooks and can be found in the ``notebooks`` directory.
 
+Authors: David Kerridge, Grace Cox, Ashley Smith (for info, contact ashley.smith@ed.ac.uk)
+
 # Contents
  1. Visualising Geomagnetic Observatory Data
      - plotting observatory time series data, from years to seconds
