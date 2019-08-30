@@ -1,3 +1,6 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/smithara/IAGA_SummerSchool2019/master?filepath=notebooks)
+[![nbviewer](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/smithara/IAGA_SummerSchool2019/tree/master/notebooks/)
+
 # IAGA Summer School 2019
 Materials for the workshop on magnetic observatories and modelling. Tutorials are written in Python as Jupyter Notebooks and can be found in the ``notebooks`` directory.
 
@@ -18,6 +21,8 @@ Authors: David Kerridge, Grace Cox, Ashley Smith (for info, contact ashley.smith
 
  
 [Use nbviewer to view the notebooks non-interactively](https://nbviewer.jupyter.org/github/smithara/IAGA_SummerSchool2019/tree/master/notebooks/)
+
+[Use Binder to launch them interactively](https://mybinder.org/v2/gh/smithara/IAGA_SummerSchool2019/master?filepath=notebooks)
 
 # Running on the ESA Virtual Research Environment (VRE)
 The VRE provides cloud-based [JupyterLab](https://jupyterlab.readthedocs.io/) servers where the tutorials can be run interactively. Students at the summer school will be given access.
